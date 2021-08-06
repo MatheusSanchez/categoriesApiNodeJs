@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-import { SpecificationRepository } from '../modules/cars/repositories/SpecificationsRepository';
+import { SpecificationRepository } from '../modules/cars/repositories/implementations/SpecificationsRepository';
 import { CreateSpecificationService } from '../modules/cars/service/CreateSpecificationService';
 
 const specificationRouter = Router();
