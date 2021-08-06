@@ -4,8 +4,8 @@ import { ICategoryRepository } from '../../repositories/ICategoriesRepository';
 class ListCategoryUseCase {
   constructor(private categoryRepository: ICategoryRepository) {}
   execute(): Category[] {
-    const categoryAlreadyExists = this.categoryRepository.list();
-    return categoryAlreadyExists;
+    const allCategories = this.categoryRepository.list();
+    return allCategories;
   }
 }
 
