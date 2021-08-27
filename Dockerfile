@@ -4,10 +4,10 @@ WORKDIR /usr/app
 
 COPY package.json ./
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
 EXPOSE 3333
 
-ENTRYPOINT ["npm", "run" ,"dev:server"]
+CMD ["yarn","dev:server"]
