@@ -2,12 +2,12 @@ FROM node
 
 WORKDIR /usr/app
 
-COPY package.json ./categoriesApiNodeJs
+COPY package.json ./
 
-COPY . . 
+RUN npm install
 
-RUN yarn
+COPY . .
 
 EXPOSE 3333
 
-CMD ["yarn", "dev:server"]
+ENTRYPOINT ["npm", "run" ,"dev:server"]
