@@ -6,13 +6,15 @@ import {
 class CreateCategoryUseCase {
   constructor(private categoryRepository: ICategoryRepository) {}
 
-  execute({ name, description }: ICreateCategoryDTO): void {
-    const categoryAlreadyExists = this.categoryRepository.findByName(name);
+  async execute({ name, description }: ICreateCategoryDTO): Promise<void> {
+    const categoryAlreadyExists = await this.categoryRepository.findByName(
+      name,
+    );
     if (categoryAlreadyExists) {
       throw new Error('Category Already Exists!');
     }
 
-    this.categoryRepository.create({ name, description });
+    await this.categoryRepository.create({ name, description });
   }
 }
 

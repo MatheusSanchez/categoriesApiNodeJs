@@ -1,3 +1,5 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { Category } from '../../entities/Category';
 import {
   ICategoryRepository,
@@ -5,12 +7,13 @@ import {
 } from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoryRepository {
-  private categories: Category[];
-  private static INSTACE: CategoriesRepository;
+  private repository: Repository<Category>;
 
-  private constructor() {
-    this.categories = [];
+  constructor() {
+    this.repository = getRepository(Category);
   }
+  /*
+  private static INSTACE: CategoriesRepository;
 
   public static getInstance(): CategoriesRepository {
     if (!CategoriesRepository.INSTACE) {
@@ -19,22 +22,20 @@ class CategoriesRepository implements ICategoryRepository {
 
     return CategoriesRepository.INSTACE;
   }
+  */
 
-  create({ name, description }: ICreateCategoryDTO): void {
-    const newCategory = new Category();
-
-    Object.assign(newCategory, { name, description, created_at: new Date() });
-    this.categories.push(newCategory);
+  async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+    const newCategory = this.repository.create({ name, description });
+    await this.repository.save(newCategory);
   }
 
-  list(): Category[] {
-    return this.categories;
+  async list(): Promise<Category[]> {
+    const allCategories = await this.repository.find();
+    return allCategories;
   }
 
-  findByName(name: string): Category {
-    const categoryFounded = this.categories.find(
-      category => category.name === name,
-    );
+  async findByName(name: string): Promise<Category> {
+    const categoryFounded = await this.repository.findOne({ name });
     return categoryFounded;
   }
 }

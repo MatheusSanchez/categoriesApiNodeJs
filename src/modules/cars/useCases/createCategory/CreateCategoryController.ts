@@ -4,9 +4,13 @@ import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
 class CreateCategoryController {
   constructor(private createCategoryUsecase: CreateCategoryUseCase) {}
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;
-    this.createCategoryUsecase.execute({ name, description });
+    try {
+      await this.createCategoryUsecase.execute({ name, description });
+    } catch (e) {
+      return response.status(400).send({ error: e.message });
+    }
 
     return response.status(201).send();
   }

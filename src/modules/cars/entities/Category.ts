@@ -19,6 +19,3 @@ class Category {
 }
 
 export { Category };
-function PrimaryCollum() {
-  throw new Error('Function not implemented.');
-}
