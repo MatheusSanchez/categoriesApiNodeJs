@@ -1,17 +1,16 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-import { createSpecificationController } from '../modules/cars/useCases/createSpecification';
-import { listSpecificationController } from '../modules/cars/useCases/listSpecification';
+import { CreateSpecificationController } from '../modules/cars/useCases/createSpecification/CreateSpecificationController';
+import { ListSpecificationController } from '../modules/cars/useCases/listSpecification/ListSpecificationController';
 
 const specificationRouter = Router();
 
-specificationRouter.post('/', (request, response) => {
-  return createSpecificationController.handle(request, response);
-});
+const createSpecificationController = new CreateSpecificationController();
+const listSpecificationController = new ListSpecificationController();
 
-specificationRouter.get('/', (request, response) => {
-  return listSpecificationController.handle(request, response);
-});
+specificationRouter.post('/', createSpecificationController.handle);
+
+specificationRouter.get('/', listSpecificationController.handle);
 
 export { specificationRouter };

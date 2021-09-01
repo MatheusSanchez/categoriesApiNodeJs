@@ -5,14 +5,19 @@ import { ICreateSpecificationDTO } from '../../repositories/ISpecificationsRepos
 import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
 
 class CreateSpecificationController {
-  handle(request: Request, response: Response): Response {
-    const { name, description }: ICreateSpecificationDTO = request.body;
-    const createSpecificationUseCase = container.resolve(
-      CreateSpecificationUseCase,
-    );
-
-    createSpecificationUseCase.execute({ name, description });
-    return response.status(201).json({ sucess: 'New Specification Created !' });
+  async handle(request: Request, response: Response): Promise<Response> {
+    try {
+      const { name, description }: ICreateSpecificationDTO = request.body;
+      const createSpecificationUseCase = container.resolve(
+        CreateSpecificationUseCase,
+      );
+      await createSpecificationUseCase.execute({ name, description });
+      return response
+        .status(201)
+        .json({ sucess: 'New Specification Created !' });
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
   }
 }
 
