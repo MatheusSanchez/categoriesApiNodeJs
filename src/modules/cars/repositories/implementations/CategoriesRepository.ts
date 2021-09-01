@@ -12,19 +12,9 @@ class CategoriesRepository implements ICategoryRepository {
   constructor() {
     this.repository = getRepository(Category);
   }
-  /*
-  private static INSTACE: CategoriesRepository;
-
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTACE) {
-      CategoriesRepository.INSTACE = new CategoriesRepository();
-    }
-
-    return CategoriesRepository.INSTACE;
-  }
-  */
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+    console.log('Creating in the DB');
     const newCategory = this.repository.create({ name, description });
     await this.repository.save(newCategory);
   }
