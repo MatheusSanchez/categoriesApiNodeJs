@@ -4,7 +4,6 @@ interface ICreateUserDTO {
   password: string;
   email: string;
   driver_licence: string;
-  admin: boolean;
 }
 
 interface IUserRepository {
@@ -14,7 +13,6 @@ interface IUserRepository {
     password,
     email,
     driver_licence,
-    admin,
   }: ICreateUserDTO): Promise<void>;
 }
 
