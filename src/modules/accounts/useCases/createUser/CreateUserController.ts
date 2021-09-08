@@ -11,9 +11,9 @@ class CreateUserController {
 
       await createUserUseCase.execute({
         name,
+        password,
         email,
         driver_licence,
-        password,
       });
 
       return response.status(201).json({ message: 'New User Created' });
