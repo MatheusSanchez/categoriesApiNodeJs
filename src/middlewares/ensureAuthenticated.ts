@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { injectable } from 'tsyringe';
 
+import { AppError } from '../errors/AppError';
 import { UsersRepository } from '../modules/accounts/repositories/implementations/UsersRepository';
 
 interface IPayload {
@@ -15,7 +16,7 @@ export async function ensureAuthenticated(
 ) {
   const authHeader = request.headers.authorization;
   if (!authHeader) {
-    throw new Error('Token Missing');
+    throw new AppError('Token Missing', 401);
   }
 
   const [, token] = authHeader.split(' ');
@@ -25,16 +26,15 @@ export async function ensureAuthenticated(
       token,
       'c45793e7fb0c40dd4e0d8de8968766c0',
     ) as IPayload;
-    console.log(user_id);
     const usersRepository = new UsersRepository();
 
     const foundedUser = usersRepository.findByID(user_id);
     if (!foundedUser) {
-      throw new Error('User does not exists !');
+      throw new AppError('User does not exists !', 401);
     }
 
     next();
   } catch {
-    throw new Error('Invalid Token !');
+    throw new AppError('Invalid Token !', 401);
   }
 }

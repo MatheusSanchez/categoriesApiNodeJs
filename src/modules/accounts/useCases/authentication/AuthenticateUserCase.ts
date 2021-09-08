@@ -2,6 +2,7 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
+import { AppError } from '../../../../errors/AppError';
 import { IUserRepository } from '../../repositories/IUsersRepository.ts';
 
 interface IResponseAuthenticate {
@@ -28,14 +29,14 @@ class AuthenticateUseCase {
     // searching users
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
-      throw new Error('Email or password incorrect!');
+      throw new AppError('Email or password incorrect!', 401);
     }
 
     // Checking password
     const passwordMatches = await compare(password, user.password);
 
     if (!passwordMatches) {
-      throw new Error('Email or password incorrect!');
+      throw new AppError('Email or password incorrect!', 401);
     }
 
     // payload and hash to generato token
