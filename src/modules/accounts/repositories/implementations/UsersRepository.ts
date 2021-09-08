@@ -24,12 +24,10 @@ class UsersRepository implements IUserRepository {
     });
     await this.repository.save(newUser);
   }
-  /*
-  async list(): Promise<Category[]> {
-    const allCategories = await this.repository.find();
-    return allCategories;
+  async findByID(id: string): Promise<User> {
+    const userFounded = await this.repository.findOne({ id });
+    return userFounded;
   }
-  */
 
   async findByEmail(email: string): Promise<User> {
     const userFounded = await this.repository.findOne({ email });
