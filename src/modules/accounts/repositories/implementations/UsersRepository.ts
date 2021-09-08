@@ -29,13 +29,12 @@ class UsersRepository implements IUserRepository {
     const allCategories = await this.repository.find();
     return allCategories;
   }
-
-  async findByName(name: string): Promise<Category> {
-    const categoryFounded = await this.repository.findOne({ name });
-    return categoryFounded;
-  }
-
   */
+
+  async findByEmail(email: string): Promise<User> {
+    const userFounded = await this.repository.findOne({ email });
+    return userFounded;
+  }
 }
 
 export { UsersRepository };
