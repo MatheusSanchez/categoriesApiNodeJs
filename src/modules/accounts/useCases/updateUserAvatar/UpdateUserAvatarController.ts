@@ -4,12 +4,16 @@ import { container } from 'tsyringe';
 import { UpdateUserAvatarUseCase } from './UpdateUserAvatarUseCase';
 
 class UpdateUserAvatarController {
-  async handle(request: Request, response: Response) {
-    const { userId } = request.user;
-    const avatarFile = null;
-    const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase);
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { id } = request.user;
 
-    updateUserAvatarUseCase.execute({ userId, avatarFile });
+    const avatarFile = request.file.filename;
+
+    const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase);
+    console.log(avatarFile);
+    updateUserAvatarUseCase.execute({ userId: id, avatarFile });
+
+    return response.status(204).send();
   }
 }
 

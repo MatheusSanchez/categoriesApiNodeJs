@@ -34,7 +34,7 @@ export async function ensureAuthenticated(
     }
 
     request.user = {
-      userId: foundedUser.id,
+      id: foundedUser.id,
     };
 
     next();

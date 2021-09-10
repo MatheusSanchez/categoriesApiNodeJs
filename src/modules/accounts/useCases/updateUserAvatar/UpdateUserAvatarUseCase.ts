@@ -1,4 +1,4 @@
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import { IUserRepository } from '../../repositories/IUsersRepository.ts';
 
@@ -6,7 +6,7 @@ interface IRequest {
   userId: string;
   avatarFile: string;
 }
-
+@injectable()
 class UpdateUserAvatarUseCase {
   constructor(
     @inject('UsersRepository')
