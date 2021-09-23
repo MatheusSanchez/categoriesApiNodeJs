@@ -5,7 +5,7 @@ import {
 } from '../ICategoriesRepository';
 
 class CategoriesRepositoryInMemory implements ICategoryRepository {
-  categories: Category[];
+  categories: Category[] = [];
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
     const newCategory: Category = new Category();
     Object.assign(newCategory, {
@@ -26,4 +26,4 @@ class CategoriesRepositoryInMemory implements ICategoryRepository {
   }
 }
 
-export default { CategoriesRepositoryInMemory };
+export { CategoriesRepositoryInMemory };
