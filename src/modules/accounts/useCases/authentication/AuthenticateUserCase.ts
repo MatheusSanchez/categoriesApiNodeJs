@@ -40,6 +40,8 @@ class AuthenticateUseCase {
       throw new AppError('Email or password incorrect!', 401);
     }
 
+    console.log(user);
+
     // payload and hash to generato token
     const token = sign({}, 'c45793e7fb0c40dd4e0d8de8968766c0', {
       subject: user.id,
