@@ -22,7 +22,6 @@ describe('Create Category Use Case', () => {
     });
 
     const newCategory = await categoriesRepository.findByName(infosTest.name);
-    // console.log(newCategory);
     expect(newCategory).toHaveProperty('id');
   });
 

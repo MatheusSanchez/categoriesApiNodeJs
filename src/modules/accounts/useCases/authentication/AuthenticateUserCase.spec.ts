@@ -28,7 +28,7 @@ describe('Authenticate User Case', () => {
       email: newUser.email,
       password: newUser.password,
     });
-    console.log(token);
+
     expect(token).toHaveProperty('token');
   });
 });
