@@ -3,7 +3,6 @@ import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '../../../../errors/AppError';
-import { usersRouter } from '../../../../routes/users.routes';
 import { IUserRepository } from '../../repositories/IUsersRepository.ts';
 
 interface IResponseAuthenticate {

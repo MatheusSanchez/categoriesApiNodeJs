@@ -1,3 +1,5 @@
+import { AppError } from '@errors/AppError';
+
 import { UsersRepositoryInMemory } from '../../repositories/inMemory/UsersRepositoryInMemory';
 import { ICreateUserDTO } from '../../repositories/IUsersRepository.ts';
 import { CreateUserUseCase } from '../createUser/CreateUserUseCase';
@@ -30,5 +32,23 @@ describe('Authenticate User Case', () => {
     });
 
     expect(token).toHaveProperty('token');
+  });
+
+  it('Should not be able to auth an user that does not exist', async () => {
+    expect(async () => {
+      const newUser: ICreateUserDTO = {
+        driver_licence: '001',
+        email: 'teste@teste.com',
+        name: 'teste',
+        password: '12345',
+      };
+
+      // await createUserUseCase.execute(newUser);
+
+      const token = await authUseCase.execute({
+        email: newUser.email,
+        password: newUser.password,
+      });
+    }).toBeInstanceOf(AppError);
   });
 });
