@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { User } from '../../entities/User';
+import { User } from '@modules/accounts/entities/User';
+
 import { IUserRepository, ICreateUserDTO } from '../IUsersRepository.ts';
 
 class UsersRepository implements IUserRepository {
