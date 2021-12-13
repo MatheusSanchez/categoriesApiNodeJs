@@ -1,4 +1,4 @@
-import { AppError } from '@errors/AppError';
+import { AppError } from '@shared/errors/AppError';
 
 import { UsersRepositoryInMemory } from '../../repositories/inMemory/UsersRepositoryInMemory';
 import { ICreateUserDTO } from '../../repositories/IUsersRepository.ts';
